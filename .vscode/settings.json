@@ -1,0 +1,31 @@
+{
+    "dataworkspace.excludedProjects": [
+        "test/test.sqlproj",
+        "test_sql/test_sql.sqlproj",
+        "Testsql/Testsql.sqlproj"
+    ],
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "192.168.0.47",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "nas_sql",
+            "database": "mydb",
+            "username": "User"
+        },
+        {
+            "mysqlOptions": {
+                "authProtocol": "default",
+                "enableSsl": "Disabled"
+            },
+            "previewLimit": 50,
+            "server": "192.168.0.22",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "mysql",
+            "database": "mydb",
+            "username": "User"
+        }
+    ]
+}
