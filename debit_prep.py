@@ -21,6 +21,14 @@ def debit_prep(connection_cred, item_wanted, quantity):
 
     return data - quantity
 
+def display(data):
+    if data == "None":
+        return "Stock inconue ou non renseigné"
+    elif data > 0:
+        return f"il restera {data} unitée(s)"
+    else: 
+        return f"il manquera {- data} unitée(s)"
+
 connection_cred = {
     "host":     "192.168.0.22",
     "user":     "User",
@@ -31,4 +39,4 @@ connection_cred = {
 item_wanted = int(input("enter the id of the item you want. "))
 quantity = int(input("enter the quantity of the item you want. "))
 
-print(debit_prep(connection_cred, item_wanted, quantity))
+print(display(debit_prep(connection_cred, item_wanted, quantity)))
