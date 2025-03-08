@@ -14,3 +14,4 @@
 - [ ] acces via internet (sécurisé)
 - [ ] identifier clairement (couleurs) chaques modificateur (log ?)
 - [ ] mandame veut un font bleu pour l'intface relfexion led et orange pour RVBS (du troll tkt mais fait le quand même :))
+- [ ] subdivisiond es chantiers
