@@ -1,4 +1,4 @@
-DROP TABLE RVBS;
+-- DROP TABLE RVBS;
 
 SELECT * FROM rvbs;
 
