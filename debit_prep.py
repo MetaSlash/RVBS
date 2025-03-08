@@ -64,6 +64,25 @@ def display(data, id):
 # faire le calcule de stock pour tous les item demandé
 def debit_prep(connection_cred ,list_of_items):
     
+    """
+    Calculates the remaining stock for multiple items after deducting requested quantities.
+
+    Establishes a connection to a MySQL database using provided credentials, iterates over
+    a list of item IDs and quantities, and retrieves the current stock levels for each item.
+    It then calculates the remaining stock after the requested quantity is deducted and
+    returns human-readable messages indicating the stock status for each item.
+
+    Args:
+        connection_cred (dict): A dictionary containing database connection credentials 
+                                with keys 'host', 'user', 'password', and 'database'.
+        list_of_items (dict): A dictionary containing lists of item IDs under the key 'id' 
+                              and corresponding requested quantities under the key 'quantity'.
+
+    Returns:
+        list: A list of strings, each describing the stock status of an item, indicating 
+              whether there are sufficient units left or if some units are missing.
+    """
+
     results = []
     mydb = mysql.connector.connect(
     host = connection_cred["host"],
