@@ -26,9 +26,9 @@ def debit_prep_unit(mydb, id, quantity):
     request = "SELECT stock FROM rvbs WHERE id = %s"
     cursor.execute(request, (id,))
     data = cursor.fetchone()
-    
-    # Si l'article n'est pas trouvé, renvoyer "None"
-    if data == None:
+
+    # Si l'article n'est pas trouvé, renvoyer None
+    if data == None or data[0] == None:
         return "None"
     else:
         # Renvoyer la différence entre le stock actuel et la quantité demandée
@@ -102,7 +102,7 @@ def debit_prep(connection_cred ,list_of_items):
 
         raw_results = debit_prep_unit(mydb, id, quantity)
         results.append(display(raw_results, id))
-        print(display(raw_results, id))
+        #print(display(raw_results, id))
 
     return results
 
@@ -114,7 +114,7 @@ def debit_prep(connection_cred ,list_of_items):
 def human():
         
     list_of_items = {
-        "id" :      [1, 2, 3, 4, 5],
+        "id" :      [124, 2, 3, 4, 5],
         "quantity" :[8, 5, 1, 10, 2]
     }
 

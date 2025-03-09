@@ -1,8 +1,9 @@
 ## Key feature
-- [ ] une gestion de stock en fonction de ref du tableau exel
-- [ ] pouvoir sortit un débit de prep 
-- 	- [ ] liste des chôses dont on a besoin pour chantier
-- 	- [ ] hilight quand les stock sont pas sufisant
+- [x] une gestion de stock en fonction de ref du tableau exel
+- [x] pouvoir sortit un débit de prep 
+- 	- [x] liste des chôses dont on a besoin pour chantier
+- 	- [x] hilight quand les stock sont pas sufisant
+-   - [ ] Update dans la bdd
 - [ ] pour fait un debit n'avoir q'a demander une quantiter d'un article particulier
 - [ ] afficher une image pour certains articles
 - [ ] horodater les débit
