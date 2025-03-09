@@ -1,7 +1,7 @@
-from func_ui import *
 from debit_prep import debit_prep, display
 import tkinter as tk
 from tkinter import ttk
+from tkinter import messagebox
 
 def add_row():
     """
@@ -39,7 +39,6 @@ def add_row():
     # Update the scroll region to accommodate the new row
     canvas.configure(scrollregion=canvas.bbox("all"))
 
-
 def remove_row(row_frame):
     """
     Remove the specified row from the list of rows and update the scroll region of the canvas.
@@ -65,6 +64,7 @@ def debit_prep_button_command(connection_cred):
     # Create a dictionary to store the values
     values = {"id" : [],
               "quantity" : []}
+    message = ""
     
     # Iterate over the rows
     for row in rows:
@@ -78,8 +78,31 @@ def debit_prep_button_command(connection_cred):
         id_list.append(int(id_entry.get())) 
         quantity_list.append(int(quantity_entry.get())) 
     
+    debit = debit_prep(connection_cred, values)["machine readable"]
+    message = debit_prep(connection_cred, values)["human readable"]
+
+    
+
+    show_popup(message)
     # Print the result of debit_prep
-    print(debit_prep(connection_cred, values))
+    print(debit)
+
+def show_popup(message):
+    # Create a Toplevel window
+    popup = tk.Toplevel(window)
+    popup.title("Popup Window")
+
+    # Create a frame to hold the label
+    content_frame = tk.Frame(popup)
+    content_frame.pack(expand=True, fill="both", padx=10, pady=10)
+
+    # Add a label to the frame
+    label = tk.Label(content_frame, text=message, justify="left")
+    label.pack(anchor="w")
+
+    # Add a button to close the popup
+    close_button = tk.Button(popup, text="Close", command=popup.destroy)
+    close_button.pack(pady=10, side="bottom")
 
     
 connection_cred = {
@@ -93,7 +116,7 @@ connection_cred = {
 # Initialize the main window
 window = tk.Tk()
 window.geometry("455x320")
-window.title("Dynamic Form with Scrollbar")
+window.title("Debit de prep")
 
 # List to keep track of rows
 rows = []
@@ -125,10 +148,10 @@ scrollbar.pack(side="right", fill="y")
 add_row()
 
 # Create and place the "ADD more 1 row" button at the bottom
-add_button = tk.Button(window, text="ADD more 1 row", command=add_row)
+add_button = tk.Button(window, text="Ajouter une ligne", command=add_row)
 add_button.pack(pady=10, side="left")
 
-debit_prep_button = tk.Button(window, text="debit de prep" , command=lambda: debit_prep_button_command(connection_cred=connection_cred))
+debit_prep_button = tk.Button(window, text="Faire le débit" , command=lambda: debit_prep_button_command(connection_cred=connection_cred))
 debit_prep_button.pack(pady=10, side="right")
 # Run the application
 window.mainloop()

@@ -50,20 +50,20 @@ def display(data, id):
         str: A human-readable string describing the stock level.
     """
     if data == "None":
-        return "[=] Stock inconue ou non renseigné"
-    elif data > 0:
+        result = "[=] Stock inconue ou non renseigné"   
+    elif data >= 0:
         # If the number of units left is positive, 
         # return a string indicating the number of units left.
-        return f"[+] il restera {data} unitée(s) de l'objet {id}"
-    else: 
+        result = f"[+] Il restera {data} unitée(s) de l'objet {id}"
+    elif data < 0: 
         # If the number of units left is negative, 
         # return a string indicating the number of units missing.
-        return f"[-] il manquera {- data} unitée(s) de l'objet {id}"
-
+        result = f"[-] Il manquera {- data} unitée(s) de l'objet {id}"
+    
+    return result
 
 # faire le calcule de stock pour tous les item demandé
 def debit_prep(connection_cred ,list_of_items):
-    
     """
     Calculates the remaining stock for multiple items after deducting requested quantities.
 
@@ -82,29 +82,35 @@ def debit_prep(connection_cred ,list_of_items):
         list: A list of strings, each describing the stock status of an item, indicating 
               whether there are sufficient units left or if some units are missing.
     """
-
+    
+    message = ""
     results = []
     mydb = mysql.connector.connect(
-    host = connection_cred["host"],
-    user = connection_cred["user"],
-    password = connection_cred["password"],
-    database = connection_cred["database"]
+        host = connection_cred["host"],
+        user = connection_cred["user"],
+        password = connection_cred["password"],
+        database = connection_cred["database"]
     )
 
     number_of_items = len(list_of_items["id"])
 
     for index in range(number_of_items):
-        item_id = list_of_items["id"]
-        item_quantity = list_of_items["quantity"]
+        # Get the current item ID and quantity
+        item_id = list_of_items["id"][index]
+        item_quantity = list_of_items["quantity"][index]
         
-        id = item_id[index]
-        quantity = item_quantity[index]
+        # Calculate the remaining stock for this item
+        raw_results = debit_prep_unit(mydb, item_id, item_quantity)
+        
+        # Append the result to the list
+        results.append(raw_results)
+        message += display(raw_results, item_id) + "\n"
 
-        raw_results = debit_prep_unit(mydb, id, quantity)
-        results.append(display(raw_results, id))
-        #print(display(raw_results, id))
 
-    return results
+    exit = {"human readable" : message,
+            "machine readable" : results}
+
+    return exit
 
     
 
@@ -127,7 +133,7 @@ def human():
 
     
 
-    print(debit_prep(connection_cred, list_of_items))
+    print(debit_prep(connection_cred, list_of_items)["human readable"])
 
 
 if __name__ == "__main__":
