@@ -8,7 +8,11 @@
 - [ ] afficher une image pour certains articles
 - [ ] horodater les débit
 - [ ] modifier les débits et afficher quand il a été modifié (log)
- 
+
+- [ ] Interface
+-     - [ ] Pour faire des débits de prep et update la bdd
+-     - [ ] Selont le chantier, dire quel debit est prévu
+- [ ] Rechercher des articles
 ## on vera
 
 - [ ] modification en temps réel de la bdd

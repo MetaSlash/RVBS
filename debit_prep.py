@@ -1,6 +1,6 @@
-import mysql.connector
+import mysql.connector 
 
-def debit_prep_unit(mydb, id, quantity):
+def stock_rest_calc_unit(mydb, id, quantity):
     """
     Calculate the remaining stock of a specified item after a requested quantity is deducted.
 
@@ -38,10 +38,10 @@ def debit_prep_unit(mydb, id, quantity):
 
 def display(data, id):
     """
-    Converts the result of debit_prep into a human-readable string.
+    Converts the result of stock_rest_calc into a human-readable string.
 
     Args:
-        data (int or str): The result of debit_prep. If "None", returns
+        data (int or str): The result of stock_rest_calc. If "None", returns
             "no stock found". If the number is positive, returns a string
             with the number of units left. If the number is negative, returns
             a string with the number of units missing.
@@ -63,7 +63,7 @@ def display(data, id):
     return result
 
 # faire le calcule de stock pour tous les item demandé
-def debit_prep(connection_cred ,list_of_items):
+def stock_rest_calc(connection_cred ,list_of_items):
     """
     Calculates the remaining stock for multiple items after deducting requested quantities.
 
@@ -100,7 +100,7 @@ def debit_prep(connection_cred ,list_of_items):
         item_quantity = list_of_items["quantity"][index]
         
         # Calculate the remaining stock for this item
-        raw_results = debit_prep_unit(mydb, item_id, item_quantity)
+        raw_results = stock_rest_calc_unit(mydb, item_id, item_quantity)
         
         # Append the result to the list
         results.append(raw_results)
@@ -116,12 +116,11 @@ def debit_prep(connection_cred ,list_of_items):
 
 ########## Human ##########
 
-
-def human():
-        
+if __name__ == "__main__":
+    
     list_of_items = {
-        "id" :      [124, 2, 3, 4, 5],
-        "quantity" :[8, 5, 1, 10, 2]
+    "id" :      [124, 2, 3, 4, 5],
+    "quantity" :[8, 5, 1, 10, 2]
     }
 
     connection_cred = {
@@ -131,10 +130,5 @@ def human():
     "database": "mydb"
     }
 
+    print(stock_rest_calc(connection_cred, list_of_items)["human readable"])
     
-
-    print(debit_prep(connection_cred, list_of_items)["human readable"])
-
-
-if __name__ == "__main__":
-    human()
